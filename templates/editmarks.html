@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block cardclass %}form-card{% endblock %}
+{% block content %}
+<h1>Edit Marks</h1>
+<form method="post"><label>Subject Name</label><input name="subject" value="{{ mark.subject }}" required><label>Class Test No.</label><input type="number" min="1" name="test_no" value="{{ mark.test_no }}" required><label>Marks</label><input type="number" min="0" name="marks" value="{{ mark.marks }}" required><button>Save Changes</button></form>
+{% endblock %}

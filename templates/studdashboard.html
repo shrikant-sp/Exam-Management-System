@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Welcome, {{ student.name }}</h1>
+
+<div class="profile">
+
+<div>
+    <b>Current Year</b>
+    <br>
+    {{ student.current_year }}
+</div>
+
+<div>
+    <b>Admission Year</b>
+    <br>
+    {{ student.admission_year }}
+</div>
+
+<div>
+    <b>Caste</b>
+    <br>
+    {{ student.caste }}
+</div>
+
+<div>
+    <b>ERP No.</b>
+    <br>
+    {{ student.erp }}
+</div>
+
+<div>
+    <b>Course Name</b>
+    <br>
+    {{ student.course }}
+</div>
+
+<div>
+    <b>Mobile No.</b>
+    <br>
+    {{ student.mobile }}
+</div>
+
+<div>
+    <b>Email ID</b>
+    <br>
+    {{ student.email }}
+</div>
+
+</div>
+
+{% endblock %}

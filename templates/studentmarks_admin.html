@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Marks: {{ student.name }}</h1>
+<p class="muted">ERP No.: {{ student.erp }}</p>
+<a class="button small" href="{{ url_for('addmarks', student_id=student.id) }}">+ Add Marks</a>
+<div class="table-wrap"><table><thead><tr><th>Subject</th><th>Class Test No.</th><th>Marks</th><th>Action</th></tr></thead><tbody>{% for mark in marks %}<tr><td>{{ mark.subject }}</td><td>{{ mark.test_no }}</td><td>{{ mark.marks }}</td><td><a href="{{ url_for('editmarks', mark_id=mark.id) }}">Edit</a></td></tr>{% else %}<tr><td colspan="4">No marks entered for this student.</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

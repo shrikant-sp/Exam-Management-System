@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Check Exam Allocation</h1>
+
+<form method="post">
+
+<div class="grid">
+
+    <div>
+        <label for="exam_type">Exam Type</label>
+        <input
+            type="text"
+            id="exam_type"
+            name="exam_type"
+            placeholder="e.g. End Semester"
+            required
+        >
+    </div>
+
+    <div>
+        <label for="semester">Semester</label>
+        <input
+            type="text"
+            id="semester"
+            name="semester"
+            placeholder="e.g. 5"
+            required
+        >
+    </div>
+
+    <div>
+        <label for="year">Year</label>
+        <input
+            type="text"
+            id="year"
+            name="year"
+            placeholder="e.g. 2026"
+            required
+        >
+    </div>
+
+    <div>
+        <label for="branch">Branch</label>
+        <input
+            type="text"
+            id="branch"
+            name="branch"
+            placeholder="e.g. Computer Engineering"
+            required
+        >
+    </div>
+
+    <div>
+        <label for="erp">Enrollment No.</label>
+        <input
+            type="text"
+            id="erp"
+            name="erp"
+            placeholder="Enter your ERP number"
+            required
+        >
+    </div>
+
+</div>
+
+<button type="submit">
+    Check Allocation
+</button>
+
+</form>
+
+<!-- Allocation Result -->
+
+{% if result %}
+
+{% if result.found %}
+
+    <h2>Allocation Found</h2>
+
+    <div class="profile">
+
+        <div>
+            <b>Enrollment No.</b>
+            <br>
+            {{ result.erp }}
+        </div>
+
+        <div>
+            <b>Exam</b>
+            <br>
+            {{ result.exam.exam_type }}
+        </div>
+
+        <div>
+            <b>Semester</b>
+            <br>
+            {{ result.exam.semester }}
+        </div>
+
+        <div>
+            <b>Branch</b>
+            <br>
+            {{ result.exam.branch }}
+        </div>
+
+        <div>
+            <b>Bench No.</b>
+            <br>
+            {{ result.bench }}
+        </div>
+
+        <div>
+            <b>Classroom</b>
+            <br>
+            {{ result.room }}
+        </div>
+
+    </div>
+
+
+    <!-- Classroom Layout Link -->
+    <a
+        class="button"
+        href="#layout"
+    >
+        Classroom Layout
+    </a>
+
+
+    <!-- Classroom Layout -->
+    <div id="layout">
+
+        <h2>Classroom Seating Layout</h2>
+
+        <p>
+            Assigned classroom:
+            <b>{{ result.room }}</b>
+            ·
+            Bench:
+            <b>{{ result.bench }}</b>
+        </p>
+
+    </div>
+
+
+{% else %}
+
+    <h2>Allocation Not Found</h2>
+
+    <p class="muted">
+        No seating allocation was found for the information provided.
+        Please check the exam details and enrollment number.
+    </p>
+
+{% endif %}
+
+{% endif %}
+
+{% endblock %}

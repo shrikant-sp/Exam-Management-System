@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Edit Student</h1>
+
+<form method="post">
+
+<div class="grid">
+
+    {% for key, label in [
+        ('name', 'Student Full Name'),
+        ('current_year', 'Current Year'),
+        ('admission_year', 'Year of Admission'),
+        ('caste', 'Caste'),
+        ('erp', 'ERP No.'),
+        ('course', 'Course Name'),
+        ('mobile', 'Mobile No.'),
+        ('email', 'Email ID')
+    ] %}
+
+    <div>
+
+        <label for="{{ key }}">
+            {{ label }}
+        </label>
+
+        <input
+            type="{% if key == 'email' %}email{% else %}text{% endif %}"
+            id="{{ key }}"
+            name="{{ key }}"
+            value="{{ student[key] }}"
+            required
+        >
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<div class="form-actions">
+
+    <button type="submit">
+        Save Changes
+    </button>
+
+    <a
+        class="button secondary"
+        href="{{ url_for('studentinfo') }}"
+    >
+        Cancel
+    </a>
+
+</div>
+
+
+</form>
+
+{% endblock %}

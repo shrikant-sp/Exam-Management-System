@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>.class-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;padding:14px;border:1px solid #ccd4e0;border-radius:11px;background:#f3f6fc}.class-choice{display:flex;align-items:center;gap:10px;margin:0;padding:12px;border:1px solid #dbe3f0;border-radius:9px;background:#fff;color:#1f2a44;font-weight:400;cursor:pointer}.class-choice:hover{border-color:#304a7d;background:#f8faff}.class-choice input{width:18px;height:18px;margin:0;accent-color:#20365f}.class-choice span{display:grid;gap:3px}.class-choice small{color:#61708a;font-weight:400}</style>
+<h1>Arrange an Exam</h1>
+<p class="muted">Select the classrooms you want to use for this exam.</p>
+<form method="post">
+    <div class="grid">
+        <div><label for="exam_type">Exam Type</label><input id="exam_type" name="exam_type" placeholder="e.g. End Semester" required></div>
+        <div><label for="semester">Semester</label><input id="semester" name="semester" required></div>
+        <div><label for="year">Year</label><input id="year" name="year" required></div>
+        <div><label for="branch">Branch</label><input id="branch" name="branch" required></div>
+    </div>
+    <label>Choose Classrooms for This Exam</label>
+    {% if rooms %}<div class="class-picker">{% for room in rooms %}<label class="class-choice"><input type="checkbox" name="classes" value="{{ room.room_no }}"><span><b>Classroom {{ room.room_no }}</b><small>Floor {{ room.floor_no }} · Capacity {{ room.capacity }}</small></span></label>{% endfor %}</div>{% else %}<p class="muted">No classrooms are available. Add classrooms in Classroom Setup first.</p>{% endif %}
+    <label for="enrollments">Student Enrollment Numbers</label>
+    <textarea id="enrollments" name="enrollments" rows="5" placeholder="One ERP number per line or comma-separated" required></textarea>
+    <button type="submit">Create Exam &amp; Allocate Seats</button>
+</form>
+{% endblock %}

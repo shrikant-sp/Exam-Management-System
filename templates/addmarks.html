@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block cardclass %}
+form-card
+{% endblock %}
+
+{% block content %}
+
+<h2>Add Marks: {{ student.name }}</h2>
+
+<form method="post">
+<label for="subject">Subject Name</label>
+<input
+    type="text"
+    id="subject"
+    name="subject"
+    placeholder="Enter subject name"
+    required
+>
+
+<label for="test_no">Class Test No.</label>
+<input
+    type="number"
+    id="test_no"
+    name="test_no"
+    min="1"
+    placeholder="e.g. 1"
+    required
+>
+
+<label for="marks">Marks</label>
+<input
+    type="number"
+    id="marks"
+    name="marks"
+    min="0"
+    placeholder="Enter marks"
+    required
+>
+
+<button type="submit">
+    Save Marks
+</button>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Exam Allocations</h1>
+
+<div class="table-wrap">
+<table>
+
+    <thead>
+        <tr>
+            <th>Exam Type</th>
+            <th>Semester</th>
+            <th>Year</th>
+            <th>Branch</th>
+            <th>Classes</th>
+            <th>Students Allocated</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for e in exams %}
+
+        <tr>
+            <td>{{ e.exam_type }}</td>
+            <td>{{ e.semester }}</td>
+            <td>{{ e.year }}</td>
+            <td>{{ e.branch }}</td>
+            <td>{{ e.classes }}</td>
+            <td>{{ e.enrollments }}</td>
+
+            <td class="actions">
+
+                <a href="{{ url_for('view_exam', exam_id=e.id) }}">
+                    View
+                </a>
+
+                <a href="{{ url_for('edit_exam', exam_id=e.id) }}">
+                    Edit
+                </a>
+
+                <a href="{{ url_for('view_exam', exam_id=e.id) }}" target="_blank">
+                    PDF
+                </a>
+
+                <form method="post" action="{{ url_for('delete_exam', exam_id=e.id) }}">
+                    <button type="submit" class="danger small">
+                        Delete
+                    </button>
+                </form>
+
+            </td>
+        </tr>
+
+        {% else %}
+
+        <tr>
+            <td colspan="7">
+                No exam allocations yet.
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

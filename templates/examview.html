@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{ exam.exam_type }} — Seating Plan</h1>
+
+<p class="muted">
+    {{ exam.branch }}
+    · Semester {{ exam.semester }}
+    · {{ exam.year }}
+</p>
+
+<div class="table-wrap">
+
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Enrollment No.</th>
+            <th>Classroom</th>
+            <th>Bench No.</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for erp, room, bench in seats %}
+
+        <tr>
+            <td>{{ erp }}</td>
+            <td>{{ room }}</td>
+            <td>{{ bench }}</td>
+        </tr>
+
+        {% else %}
+
+        <tr>
+            <td colspan="3">
+                No seats have been allocated yet.
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+
+</div>
+
+<button
+type="button"
+onclick="window.print()"
+
+>
+
+
+Print / Save PDF
+
+
+</button>
+
+{% endblock %}

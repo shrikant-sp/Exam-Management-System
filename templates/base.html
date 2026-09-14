@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>{{ title or 'Exam Portal' }}</title>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+
+
+</head>
+
+<body class="{% block bodyclass %}{% endblock %}">
+
+
+<nav>
+
+    <!-- Website Brand -->
+    <a
+        class="brand"
+        href="{{ url_for('index') }}"
+    >
+        Exam Portal
+    </a>
+
+
+    <!-- Admin Navigation -->
+    {% if session.admin_id %}
+
+        <a href="{{ url_for('adashboard') }}">
+            Exam
+        </a>
+
+        <a href="{{ url_for('allocation') }}">
+            Allocation
+        </a>
+
+        <a href="{{ url_for('classroom') }}">
+            Classroom
+        </a>
+
+        <a href="{{ url_for('studentinfo') }}">
+            Student Info
+        </a>
+
+        <a href="{{ url_for('adminmarks') }}">
+            Marks
+        </a>
+
+
+    <!-- Student Navigation -->
+    {% elif session.student_id %}
+
+        <a href="{{ url_for('studdashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('studexam') }}">
+            Exam
+        </a>
+
+        <a href="{{ url_for('studmarks') }}">
+            Marks
+        </a>
+
+    {% endif %}
+
+
+    <!-- Logout -->
+    {% if session.admin_id or session.student_id %}
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    {% endif %}
+
+</nav>
+
+
+<!-- Main Content -->
+<main class="card {% block cardclass %}{% endblock %}">
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% for category, message in messages %}
+
+            <div class="flash {{ category }}">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endwith %}
+
+
+    <!-- Page Content -->
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+</body>
+
+</html>

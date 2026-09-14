@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block bodyclass %}auth-page{% endblock %}
+{% block cardclass %}auth-card{% endblock %}
+
+{% block content %}
+<style>
+body.auth-page{min-height:100vh;display:grid;place-items:center;background:#fff}body.auth-page nav{display:none}.auth-page .auth-card{width:min(600px,calc(100% - 40px));margin:0;padding:68px 60px 44px;border-radius:24px;box-shadow:0 16px 24px rgba(0,0,0,.22)}.auth-logo{display:block;width:180px;height:180px;object-fit:contain;margin:0 auto 42px}.auth-title{text-align:center;margin:0 0 18px;color:#1f3374;font-size:30px}.auth-form label{display:none}.auth-form input{height:55px;margin:7px 0;border:1px solid #b9b9b9;border-radius:10px;font-size:18px}.auth-form button{width:100%;height:57px;margin:11px 0 22px;border-radius:10px;background:#20365f;font-size:18px}.auth-links{text-align:center;line-height:1.4}.auth-links a{font-weight:bold;color:#142a78;text-decoration:none}.auth-links a:hover{text-decoration:underline}@media(max-width:600px){.auth-page .auth-card{padding:48px 28px 36px}.auth-logo{width:150px;height:150px;margin-bottom:30px}.auth-title{font-size:26px}}
+</style>
+
+<img class="auth-logo" src="{{ url_for('static', filename='sandip-foundation-logo.png') }}" alt="Sandip Foundation logo">
+<h1 class="auth-title">Admin Login</h1>
+
+<form class="auth-form" method="post">
+    <label for="erp">Admin Username</label>
+    <input type="text" id="erp" name="erp" placeholder="Admin Username" required>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Password" required>
+
+    <button type="submit">Login</button>
+</form>
+
+<div class="auth-links">
+    <a href="{{ url_for('forgotpassword') }}">Forgot Password?</a><br>
+    Don’t have an account? <a href="{{ url_for('adminsignup') }}">Sign Up</a>
+</div>
+{% endblock %}

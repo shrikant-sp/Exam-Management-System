@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Class Test Marks</h1>
+
+<div class="table-wrap">
+<table>
+
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>ERP No.</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for s in students %}
+
+        <tr>
+
+            <td>{{ s.name }}</td>
+
+            <td>{{ s.erp }}</td>
+
+            <td>
+                <a
+                    class="button small"
+                    href="{{ url_for('addmarks', student_id=s.id) }}"
+                >
+                    +
+                </a>
+                <a class="button secondary small" href="{{ url_for('view_student_marks', student_id=s.id) }}">Marks</a>
+            </td>
+
+        </tr>
+
+        {% else %}
+
+        <tr>
+            <td colspan="3">
+                Add students in Student Info first.
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block bodyclass %}landing-page{% endblock %}
+{% block cardclass %}landing-card{% endblock %}
+
+{% block content %}
+<style>
+body.landing-page{min-height:100vh;display:grid;place-items:center;background:#fff}body.landing-page nav{display:none}.landing-page .landing-card{width:min(600px,calc(100% - 40px));min-height:623px;margin:0;padding:50px 38px 58px;text-align:center;border-radius:24px;box-shadow:0 18px 24px rgba(0,0,0,.25)}.college-logo{display:block;width:200px;height:200px;object-fit:contain;margin:0 auto 55px}.landing-title{margin:0 0 27px;text-transform:uppercase;color:#243a62;font-size:29px;line-height:1.38;letter-spacing:.2px}.landing-actions{display:grid;gap:22px}.landing-button{display:block;padding:17px 20px;background:#20365f;border-radius:12px;color:#fff;text-decoration:none;font-size:20px;transition:background .2s,transform .2s}.landing-button:hover{background:#2d4c82;transform:translateY(-1px)}@media(max-width:600px){.landing-page .landing-card{min-height:auto;padding:44px 26px}.college-logo{width:160px;height:160px;margin-bottom:38px}.landing-title{font-size:23px}.landing-button{font-size:18px}}
+</style>
+
+<img class="college-logo" src="{{ url_for('static', filename='sandip-foundation-logo.png') }}" alt="Sandip Foundation logo">
+<h1 class="landing-title">Exam Seating Arrangement<br>System</h1>
+<div class="landing-actions">
+    <a class="landing-button" href="{{ url_for('adminlogin') }}">Admin Login</a>
+    <a class="landing-button" href="{{ url_for('studlogin') }}">Student Login</a>
+</div>
+{% endblock %}

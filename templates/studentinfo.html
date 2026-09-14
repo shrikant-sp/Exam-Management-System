@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Student Information</h1>
+
+<p class="muted">
+    Add student accounts, keep records current, and review profile changes
+    submitted by students.
+</p>
+
+<!-- Add Student Section -->
+
+<details>
+
+<summary>Add a Student</summary>
+
+<form method="post">
+
+    <div class="grid">
+
+        {% for key, label in [
+            ('name', 'Student Full Name'),
+            ('current_year', 'Current Year'),
+            ('admission_year', 'Year of Admission'),
+            ('caste', 'Caste'),
+            ('erp', 'ERP No.'),
+            ('course', 'Course Name'),
+            ('mobile', 'Mobile No.'),
+            ('email', 'Email ID'),
+            ('password', 'Password')
+        ] %}
+
+        <div>
+
+            <label for="{{ key }}">
+                {{ label }}
+            </label>
+
+            <input
+                id="{{ key }}"
+                name="{{ key }}"
+                type="{% if key == 'email' %}email{% elif key == 'password' %}password{% else %}text{% endif %}"
+                {% if key == 'mobile' %}inputmode="tel"{% endif %}
+                required
+            >
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <button type="submit">
+        Add Student
+    </button>
+
+</form>
+
+</details>
+
+<!-- Student Submitted Updates -->
+
+{% if updates %}
+
+
+<h2>Student-submitted Updates</h2>
+
+<div class="table-wrap">
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Student</th>
+                <th>Submitted Data</th>
+                <th>Actions</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for u in updates %}
+
+            <tr>
+
+                <td>
+                    <b>{{ u.name }}</b>
+                    <br>
+                    {{ u.erp }}
+                </td>
+
+                <td>
+
+                    {% for key, value in u.data|fromjson|dictsort %}
+
+                        <span class="tag">
+                            {{ key|replace('_', ' ')|title }}:
+                            {{ value }}
+                        </span>
+
+                    {% endfor %}
+
+                </td>
+
+                <td class="actions">
+
+                    <form
+                        method="post"
+                        action="{{ url_for(
+                            'handle_student_update',
+                            update_id=u.id,
+                            action='approve'
+                        ) }}"
+                    >
+                        <button
+                            type="submit"
+                            class="small"
+                        >
+                            Approve
+                        </button>
+                    </form>
+
+
+                    <form
+                        method="post"
+                        action="{{ url_for(
+                            'handle_student_update',
+                            update_id=u.id,
+                            action='reject'
+                        ) }}"
+                    >
+                        <button
+                            type="submit"
+                            class="danger small"
+                        >
+                            Reject
+                        </button>
+                    </form>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+{% endif %}
+
+<!-- Registered Students -->
+
+<div class="section-heading">
+
+```
+<h2>Registered Students</h2>
+
+<form method="get" class="search">
+
+    <input
+        type="search"
+        name="q"
+        value="{{ query }}"
+        placeholder="Search name, ERP, course, or email"
+    >
+
+    <button
+        type="submit"
+        class="small"
+    >
+        Search
+    </button>
+
+</form>
+
+
+</div>
+
+<div class="table-wrap">
+
+
+<table>
+
+    <thead>
+
+        <tr>
+            <th>Name</th>
+            <th>ERP</th>
+            <th>Course</th>
+            <th>Year</th>
+            <th>Contact</th>
+            <th>Actions</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for s in students %}
+
+        <tr>
+
+            <td>
+                {{ s.name }}
+            </td>
+
+            <td>
+                {{ s.erp }}
+            </td>
+
+            <td>
+                {{ s.course }}
+            </td>
+
+            <td>
+                {{ s.current_year }}
+            </td>
+
+            <td>
+                {{ s.mobile }}
+                <br>
+                <small>{{ s.email }}</small>
+            </td>
+
+            <td class="actions">
+
+                <a
+                    href="{{ url_for(
+                        'edit_student',
+                        student_id=s.id
+                    ) }}"
+                >
+                    Edit
+                </a>
+
+
+                <form
+                    method="post"
+                    action="{{ url_for(
+                        'delete_student',
+                        student_id=s.id
+                    ) }}"
+                    onsubmit="return confirm(
+                        'Delete this student record?'
+                    )"
+                >
+
+                    <button
+                        type="submit"
+                        class="danger small"
+                    >
+                        Delete
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+        {% else %}
+
+        <tr>
+
+            <td colspan="6">
+                No matching students found.
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Edit Exam Allocation</h1>
+
+<form method="post">
+
+
+<div class="grid">
+
+    <div>
+        <label for="exam_type">Exam Type</label>
+        <input
+            type="text"
+            id="exam_type"
+            name="exam_type"
+            value="{{ exam.exam_type }}"
+            required
+        >
+    </div>
+
+    <div>
+        <label for="semester">Semester</label>
+        <input
+            type="text"
+            id="semester"
+            name="semester"
+            value="{{ exam.semester }}"
+            required
+        >
+    </div>
+
+    <div>
+        <label for="year">Year</label>
+        <input
+            type="text"
+            id="year"
+            name="year"
+            value="{{ exam.year }}"
+            required
+        >
+    </div>
+
+    <div>
+        <label for="branch">Branch</label>
+        <input
+            type="text"
+            id="branch"
+            name="branch"
+            value="{{ exam.branch }}"
+            required
+        >
+    </div>
+
+</div>
+
+<label for="enrollments">
+    Student Enrollment Numbers
+</label>
+
+<textarea
+    id="enrollments"
+    name="enrollments"
+    rows="8"
+    placeholder="One ERP number per line or comma-separated"
+    required
+>{{ exam.enrollments }}</textarea>
+
+<button type="submit">
+    Save Changes
+</button>
+
+
+</form>
+
+{% endblock %}

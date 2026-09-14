@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>My Class Test Marks</h1>
+
+<div class="table-wrap">
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Subject Name</th>
+            <th>Class Test No.</th>
+            <th>Marks</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for m in marks %}
+
+        <tr>
+            <td>{{ m.subject }}</td>
+            <td>{{ m.test_no }}</td>
+            <td>{{ m.marks }}</td>
+        </tr>
+
+        {% else %}
+
+        <tr>
+            <td colspan="3">
+                No marks have been published yet.
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+
+</div>
+
+{% endblock %}
